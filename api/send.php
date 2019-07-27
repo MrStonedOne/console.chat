@@ -1,5 +1,6 @@
 <?php
 session_start();
+/*
 function autoBanned($string) {
 	$string = str_replace(" ", "", $string);
 	$badWords = array(
@@ -19,6 +20,7 @@ function autoBanned($string) {
     	return false;
     }
 }
+*/
 function ban($identifier) {
 	$banArray = [
 		"time" => time()
@@ -69,9 +71,9 @@ if (file_exists("bans/$identifier.json")) {
 	$error = "You just said that!";
 } else if (strlen($message) > 500) {
 	$error = "Message can't exceed 500 characters";
-} else if (autoBanned($message)) {
+/*} else if (autoBanned($message)) {
 	$error = "You were automatically banned!";
-	ban($identifier);
+	ban($identifier);*/
 } else {
 	$messageContents = file_get_contents("messages/$domain.json");
 	if ($messageContents === false) {
@@ -79,11 +81,11 @@ if (file_exists("bans/$identifier.json")) {
 	} else {
 		$messageArray = json_decode($messageContents, true);
 	}
-	$check = json_decode(file_get_contents("https://www.purgomalum.com/service/json?add=porn&text=" . urlencode($message)), true);
-	$messageFiltered = $check["result"];
+	/*$check = json_decode(file_get_contents("https://www.purgomalum.com/service/json?add=porn&text=" . urlencode($message)), true);
+	$messageFiltered = $check["result"];*/
 	$messageArray[] = [
 		"identifier" => $identifier,
-		"message" => $messageFiltered,
+		"message" => $message/*Filtered*/,
 		"color" => $color,
 		"time" => $time
 	];
